@@ -1,0 +1,8 @@
+[2024-05-21 04:03:08] [1] [WARN] Reporting disabled: using no op test run registrar
+[2024-05-21 04:03:08] [1] [INFO] TEST [MobileNativeAutomation - loginWithStandardCredentials] STARTED at [13:03:08 2024-05-21]
+[2024-05-21 04:03:08] [1] [INFO] Starting driver session...
+[2024-05-21 04:03:11] [1] [INFO] Driver session started.
+[2024-05-21 04:03:11] [1] [INFO] Existing contexts: 
+[2024-05-21 04:03:11] [1] [INFO] NATIVE_APP
+[2024-05-21 04:03:11] [1] [INFO] Switching to context : NATIVE_APP
+[2024-05-21 04:03:14] [1] [INFO] TEST [MobileNativeAutomation - loginWithStandardCredentials] PASSED at [13:03:14 2024-05-21]

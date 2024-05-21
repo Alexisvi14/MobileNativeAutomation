@@ -1,0 +1,30 @@
+[2024-05-21 04:22:27] [1] [INFO] 
+============= Basic configuration =============
+env=DEMO
+=========== Encryptor configuration ===========
+crypto_key_value=*****
+=========== WebDriver configuration ===========
+selenium_url=http://localhost:4723
+auto_screenshot=true
+localization_encoding=UTF-8
+language=en_US
+-------------- Driver capabilities ------------
+deviceType=phone
+platformVersion=17.4
+appWaitActivity=*
+bundleId=com.saucelabs.SwagLabsMobileApp
+automationName=XCUITest
+platformName=iOS
+udid=338F0537-B207-42AC-B4BF-E712D585A6DE
+deviceName=iPhone 15 Pro
+===============================================
+
+[2024-05-21 04:22:28] [1] [WARN] Reporting disabled: using no op test run registrar
+[2024-05-21 04:22:28] [1] [INFO] [TestNG] Running:
+  /Users/alexisvillamayor/Library/Caches/JetBrains/IdeaIC2022.2/temp-testng-customsuite.xml
+
+[2024-05-21 04:22:28] [1] [INFO] Set thread-count=1
+[2024-05-21 04:22:28] [1] [INFO] Set data-provider-thread-count=1
+[2024-05-21 04:22:28] [1] [INFO] CARINA_CORE_VERSION: 1.2.8
+[2024-05-21 04:22:38] [1] [INFO] INFO: '**************** Test execution summary ****************'.
+[2024-05-21 04:22:38] [1] [INFO] RESULT #1: TEST [MobileNativeAutomation - addElementToCartTest] FAIL [log=file:///Users/alexisvillamayor/Solvd/MobileNativeAutomation/reports/1716308547986/3a7e745c-52f3-43ee-8964-53e49cf527ce/test.log]

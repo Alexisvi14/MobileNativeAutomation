@@ -1,0 +1,48 @@
+[2024-05-21 04:22:28] [1] [WARN] Reporting disabled: using no op test run registrar
+[2024-05-21 04:22:28] [1] [INFO] TEST [MobileNativeAutomation - addElementToCartTest] STARTED at [13:22:28 2024-05-21]
+[2024-05-21 04:22:28] [1] [INFO] Starting driver session...
+[2024-05-21 04:22:31] [1] [INFO] Driver session started.
+[2024-05-21 04:22:32] [1] [INFO] Existing contexts: 
+[2024-05-21 04:22:32] [1] [INFO] NATIVE_APP
+[2024-05-21 04:22:32] [1] [INFO] Switching to context : NATIVE_APP
+[2024-05-21 04:22:32] [1] [INFO] Element 'standardUser' is clicked.
+[2024-05-21 04:22:33] [1] [INFO] Element 'loginButton' is clicked.
+[2024-05-21 04:22:35] [1] [INFO] returned first but found 6 elements by locator: By.xpath: (//XCUIElementTypeOther[@name="test-ADD TO CART"])['1']
+[2024-05-21 04:22:35] [1] [INFO] Element 'addToCartButton' is clicked.
+[2024-05-21 04:22:36] [1] [INFO] Element 'cartButton' is clicked.
+[2024-05-21 04:22:37] [1] [ERROR] TEST [MobileNativeAutomation - addElementToCartTest] FAILED at [13:22:37 2024-05-21] - stale element reference
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.4.1', java.version: '17.0.10'
+Driver info: driver.version: unknown
+
+com.zebrunner.carina.webdriver.decorator.ExtendedWebElement.isDisplayed(ExtendedWebElement.java:640)
+com.zebrunner.carina.demo.gui.pages.ios.CartPage.isDescriptionDisplayed(CartPage.java:45)
+com.zebrunner.carina.demo.SauceLabsTestsIOS.addElementToCartTest(SauceLabsTestsIOS.java:44)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+java.base/java.lang.reflect.Method.invoke(Method.java:568)
+org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+org.testng.TestRunner.privateRun(TestRunner.java:848)
+org.testng.TestRunner.run(TestRunner.java:621)
+org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+org.testng.SuiteRunner.run(SuiteRunner.java:336)
+org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+org.testng.TestNG.runSuites(TestNG.java:1114)
+org.testng.TestNG.run(TestNG.java:1082)
+com.intellij.rt.testng.IDEARemoteTestNG.run(IDEARemoteTestNG.java:66)
+com.intellij.rt.testng.RemoteTestNGStarter.main(RemoteTestNGStarter.java:109)
