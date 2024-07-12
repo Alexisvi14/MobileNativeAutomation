@@ -30,6 +30,11 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
+    public void clickProblemUser() {
+
+    }
+
+    @Override
     public HomePageBase clickLoginButton() {
         loginButton.click();
         return initPage(getDriver(),HomePageBase.class);
@@ -48,5 +53,20 @@ public class LoginPage extends LoginPageBase {
         standardUser.click();
         loginButton.click();
         return initPage(getDriver(), HomePageBase.class);
+    }
+
+    @Override
+    public HomePageBase loginWithProblemCredentials() {
+        return null;
+    }
+
+    @Override
+    public void clickUsernameTextBox(String username) {
+
+    }
+
+    @Override
+    public void clickPasswordTextBox(String password) {
+
     }
 }

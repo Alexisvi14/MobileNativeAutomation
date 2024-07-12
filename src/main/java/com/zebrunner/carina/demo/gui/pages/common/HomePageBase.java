@@ -28,4 +28,6 @@ public abstract class HomePageBase extends AbstractPage implements IMobileUtils 
 
     public abstract void addProductToCart(String index);
     public abstract CartPageBase clickCartButton();
+
+    public abstract void selectFilterByText(String filterText);
 }

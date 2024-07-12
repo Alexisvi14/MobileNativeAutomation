@@ -25,6 +25,21 @@ public class ProductDetailPage extends ProductDetailPageBase {
         return productTitle.isPresent();
     }
 
+    @Override
+    public boolean isImgPresent() {
+        return false;
+    }
+
+    @Override
+    public String getProductPrice() {
+        return null;
+    }
+
+    @Override
+    public void clickAddToCartBtn() {
+
+    }
+
 
     @Override
     public String getProductTitle() {

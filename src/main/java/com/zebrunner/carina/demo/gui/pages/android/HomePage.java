@@ -6,29 +6,30 @@ import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
-import java.util.List;
 import java.util.Set;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
 
-    @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-Item\"])['%s']")
+    @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-Item\"])[%s]")
     ExtendedWebElement products;
     @FindBy(xpath = "add")
     ExtendedWebElement burguerMenu;
     @ExtendedFindBy(accessibilityId = "test-Toggle")
     ExtendedWebElement changeViewButton;
-    @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-ADD TO CART\"])['%s']")
+    @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-ADD TO CART\"])[%s]")
     ExtendedWebElement addToCartButton;
     @ExtendedFindBy(accessibilityId = "test-Cart")
     ExtendedWebElement cartButton;
     @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-Item\"])[1]")
     ExtendedWebElement firstElement;
+    @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
+    ExtendedWebElement filterButton;
+    @FindBy(xpath = "//android.widget.TextView[contains(@text, '%s')]")
+    ExtendedWebElement filterOption;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -55,6 +56,9 @@ public class HomePage extends HomePageBase {
     @Override
     public ProductDetailPageBase clickProductByIndex(String index) {
         products = products.format(index);
+        while (!products.isPresent()){
+            swipe(products);
+        }
         products.click();
         return initPage(getDriver(), ProductDetailPageBase.class);
     }
@@ -74,6 +78,13 @@ public class HomePage extends HomePageBase {
     public CartPageBase clickCartButton() {
         cartButton.click();
         return initPage(getDriver(), CartPageBase.class);
+    }
+
+    @Override
+    public void selectFilterByText(String filterText) {
+        filterButton.click();
+        filterOption = filterOption.format(filterText);
+        filterOption.click();
     }
 
     @Override

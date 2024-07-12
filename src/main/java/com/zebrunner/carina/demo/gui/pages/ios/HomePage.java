@@ -81,4 +81,9 @@ public class HomePage extends HomePageBase {
         }
         return initPage(getDriver(), CartPageBase.class);
     }
+
+    @Override
+    public void selectFilterByText(String filterText) {
+
+    }
 }

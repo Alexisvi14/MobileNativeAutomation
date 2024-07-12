@@ -14,10 +14,16 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage extends LoginPageBase {
     @ExtendedFindBy( accessibilityId = "test-standard_user")
     ExtendedWebElement standardUser;
+    @ExtendedFindBy( accessibilityId = "test-problem_user")
+    ExtendedWebElement problemUser;
     @FindBy(xpath = "//android.view.ViewGroup[@content-desc='test-LOGIN']")
     ExtendedWebElement loginButton;
     @FindBy(css = "#signin-error-msg")
     ExtendedWebElement errorMsg;
+    @ExtendedFindBy(accessibilityId = "test-Username")
+    ExtendedWebElement usernameTextBox;
+    @ExtendedFindBy(accessibilityId = "test-Password")
+    ExtendedWebElement passwordTextBox;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -29,6 +35,14 @@ public class LoginPage extends LoginPageBase {
             swipe(standardUser);
         }
         standardUser.click();
+    }
+
+    @Override
+    public void clickProblemUser() {
+        while (!problemUser.isPresent()){
+            swipe(problemUser);
+        }
+        problemUser.click();
     }
 
     @Override
@@ -50,5 +64,25 @@ public class LoginPage extends LoginPageBase {
         standardUser.click();
         loginButton.click();
         return initPage(getDriver(), HomePageBase.class);
+    }
+
+    @Override
+    public HomePageBase loginWithProblemCredentials() {
+        while (!problemUser.isPresent()){
+            swipe(problemUser, 500);
+        }
+        problemUser.click();
+        loginButton.click();
+        return initPage(getDriver(), HomePageBase.class);
+    }
+
+    @Override
+    public void clickUsernameTextBox(String username) {
+        usernameTextBox.type(username);
+    }
+
+    @Override
+    public void clickPasswordTextBox(String password) {
+        passwordTextBox.type(password);
     }
 }
