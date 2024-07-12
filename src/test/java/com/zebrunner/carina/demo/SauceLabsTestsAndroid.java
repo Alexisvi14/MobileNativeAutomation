@@ -102,8 +102,11 @@ public class SauceLabsTestsAndroid implements IAbstractTest {
     }
     @Test(description = "Sort Items by price from low to high", dependsOnMethods = "loginWithStandardCredentialsTest")
     @MethodOwner(owner = "Alexis")
-    public void addMultipleItemsToCartTest(){
+    public void addMultipleItemsToCartTest() throws InterruptedException {
         HomePageBase sauceLabsHomePage = initPage(getDriver(), HomePageBase.class);
-
+        sauceLabsHomePage.addProductToCart("1");
+        sauceLabsHomePage.addProductToCart("2");
+        Thread.sleep(3000);
+        sauceLabsHomePage.clickCartButton();
     }
 }
