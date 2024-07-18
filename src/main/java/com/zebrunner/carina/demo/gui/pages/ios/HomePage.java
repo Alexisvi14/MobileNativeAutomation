@@ -1,5 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.ios;
 
+import com.zebrunner.carina.demo.gui.enums.SortingType;
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
 import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
@@ -83,7 +84,18 @@ public class HomePage extends HomePageBase {
     }
 
     @Override
-    public void selectFilterByText(String filterText) {
+    public void sortItems(SortingType sortingType) {
 
     }
+
+    @Override
+    public void openFilter() {
+
+    }
+
+    @Override
+    public boolean areItemsSortedByAscendingPrice() {
+        return false;
+    }
+
 }

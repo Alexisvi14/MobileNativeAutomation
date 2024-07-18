@@ -1,5 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.common;
 
+import com.zebrunner.carina.demo.gui.enums.SortingType;
 import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.PageOpeningStrategy;
 import org.openqa.selenium.WebDriver;
@@ -28,6 +29,7 @@ public abstract class HomePageBase extends AbstractPage implements IMobileUtils 
 
     public abstract void addProductToCart(String index);
     public abstract CartPageBase clickCartButton();
-
-    public abstract void selectFilterByText(String filterText);
+    public abstract void sortItems(SortingType sortingType);
+    public abstract void openFilter();
+    public abstract boolean areItemsSortedByAscendingPrice();
 }

@@ -15,7 +15,7 @@
 
 	<test name="Mobile test">
 		<classes>
-			<class name="com.zebrunner.carina.demo.SauceLabsTestsAndroid" />
+			<class name="com.zebrunner.carina.demo.CompletePurchaseTests" />
 		</classes>
 	</test>
 

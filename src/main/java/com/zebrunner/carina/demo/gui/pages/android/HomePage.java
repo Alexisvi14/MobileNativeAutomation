@@ -1,5 +1,7 @@
 package com.zebrunner.carina.demo.gui.pages.android;
 
+import com.zebrunner.carina.demo.gui.components.android.FilterElementsAndroid;
+import com.zebrunner.carina.demo.gui.enums.SortingType;
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
 import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
@@ -12,6 +14,7 @@ import org.openqa.selenium.support.FindBy;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HomePageBase.class)
 public class HomePage extends HomePageBase {
@@ -30,8 +33,11 @@ public class HomePage extends HomePageBase {
     ExtendedWebElement firstElement;
     @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
     ExtendedWebElement filterButton;
-    @FindBy(xpath = "//android.widget.TextView[contains(@text, '%s')]")
-    ExtendedWebElement filterOption;
+    @ExtendedFindBy(accessibilityId = "Selector container")
+    FilterElementsAndroid filterOption;
+    @ExtendedFindBy(accessibilityId = "test-Price")
+    private List<ExtendedWebElement> productPrices;
+
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -83,10 +89,28 @@ public class HomePage extends HomePageBase {
     }
 
     @Override
-    public void selectFilterByText(String filterText) {
+    public void sortItems(SortingType sortingType) {
+        openFilter();
+        filterOption.sortBy(sortingType);
+    }
+
+    @Override
+    public void openFilter() {
         filterButton.click();
-        filterOption = filterOption.format(filterText);
-        filterOption.click();
+    }
+
+    @Override
+    public boolean areItemsSortedByAscendingPrice() {
+        List<Double> prices = productPrices.stream()
+                .map(element -> Double.parseDouble(element.getText().replace("$", "")))
+                .collect(Collectors.toList());
+
+        for (int i = 0; i < prices.size() - 1; i++) {
+            if (prices.get(i) > prices.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -94,4 +118,6 @@ public class HomePage extends HomePageBase {
         firstElement.click();
         return initPage(getDriver(), ProductDetailPageBase.class);
     }
+
+
 }
