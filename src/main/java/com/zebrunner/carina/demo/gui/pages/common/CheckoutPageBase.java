@@ -12,4 +12,5 @@ public abstract class CheckoutPageBase extends AbstractPage implements IMobileUt
     public abstract void completeCredentials(String firstName, String lastName, String zipCode);
     public abstract void clickContinueBtn();
     public abstract void clickFinishBtn();
+    public abstract boolean isThankYouForYourOrderTextPresent();
 }

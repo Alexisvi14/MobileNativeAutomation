@@ -15,12 +15,14 @@ public abstract class LoginPageBase extends AbstractPage implements IMobileUtils
     }
     public abstract void clickStandardUser();
     public abstract void clickProblemUser();
-    public abstract HomePageBase clickLoginButton();
+    public abstract ProductsListPageBase clickLoginButton();
     public abstract String getErrorMsg();
 
-    public abstract HomePageBase loginWithStandardCredentials();
-    public abstract HomePageBase loginWithProblemCredentials();
+    public abstract ProductsListPageBase loginWithStandardCredentials();
+    public abstract ProductsListPageBase loginWithProblemCredentials();
 
     public abstract void clickUsernameTextBox(String username);
     public abstract void clickPasswordTextBox(String password);
+
+    public abstract boolean isLoginBtnPresent();
 }

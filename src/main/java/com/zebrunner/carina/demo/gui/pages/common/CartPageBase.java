@@ -12,7 +12,9 @@ public abstract class CartPageBase extends AbstractPage implements IMobileUtils 
 
     public abstract void clickRemoveButton();
     public abstract CheckoutPageBase clickCheckoutButton();
-    public abstract HomePageBase clickContinueShoppingButton();
+    public abstract ProductsListPageBase clickContinueShoppingButton();
 
     public abstract boolean isDescriptionDisplayed();
+
+    public abstract boolean isYourCartTitleDisplayed();
 }

@@ -1,22 +1,23 @@
 package com.zebrunner.carina.demo.gui.components.android;
 
-import com.zebrunner.carina.demo.gui.components.common.HeaderMenuBase;
+import com.zebrunner.carina.demo.gui.components.common.HeaderComponent;
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
-import com.zebrunner.carina.demo.gui.pages.common.MenuPageBase;
-import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
-@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HeaderMenuBase.class)
-public class HeaderMenuAndroid extends HeaderMenuBase {
+public class AndroidHeaderComponent extends HeaderComponent {
     @ExtendedFindBy(accessibilityId = "test-Cart")
     ExtendedWebElement cartBtn;
     @ExtendedFindBy(accessibilityId = "test-Menu")
     ExtendedWebElement menuBtn;
+    @FindBy(xpath = "//android.widget.TextView[@text= '%s']")
+    ExtendedWebElement numberOfElementsInCartIcon;
 
-    public HeaderMenuAndroid(WebDriver driver) {
-        super(driver);
+    public AndroidHeaderComponent(WebDriver driver, SearchContext searchContext) {
+        super(driver, searchContext);
     }
 
     @Override
@@ -25,9 +26,4 @@ public class HeaderMenuAndroid extends HeaderMenuBase {
         return initPage(getDriver(), CartPageBase.class);
     }
 
-    @Override
-    public MenuPageBase clickMenuBtn() {
-        menuBtn.click();
-        return initPage(getDriver(), MenuPageBase.class);
-    }
 }

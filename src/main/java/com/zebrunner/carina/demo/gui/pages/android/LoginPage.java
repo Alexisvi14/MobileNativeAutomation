@@ -1,10 +1,8 @@
 package com.zebrunner.carina.demo.gui.pages.android;
 
-import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
+import com.zebrunner.carina.demo.gui.pages.common.ProductsListPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.LoginPageBase;
-import com.zebrunner.carina.demo.utils.MobileContextUtils;
 import com.zebrunner.carina.utils.factory.DeviceType;
-import com.zebrunner.carina.utils.mobile.IMobileUtils;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
@@ -46,9 +44,9 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public HomePageBase clickLoginButton() {
+    public ProductsListPageBase clickLoginButton() {
         loginButton.click();
-        return initPage(getDriver(),HomePageBase.class);
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
@@ -57,23 +55,23 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public HomePageBase loginWithStandardCredentials() {
+    public ProductsListPageBase loginWithStandardCredentials() {
         while (!standardUser.isPresent()){
             swipe(standardUser, 500);
         }
         standardUser.click();
         loginButton.click();
-        return initPage(getDriver(), HomePageBase.class);
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
-    public HomePageBase loginWithProblemCredentials() {
+    public ProductsListPageBase loginWithProblemCredentials() {
         while (!problemUser.isPresent()){
             swipe(problemUser, 500);
         }
         problemUser.click();
         loginButton.click();
-        return initPage(getDriver(), HomePageBase.class);
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
@@ -84,5 +82,10 @@ public class LoginPage extends LoginPageBase {
     @Override
     public void clickPasswordTextBox(String password) {
         passwordTextBox.type(password);
+    }
+
+    @Override
+    public boolean isLoginBtnPresent() {
+        return loginButton.isPresent();
     }
 }

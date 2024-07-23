@@ -16,4 +16,7 @@ public abstract class ProductDetailPageBase extends AbstractPage implements IMob
 
     public abstract String getProductPrice();
     public abstract void clickAddToCartBtn();
+    public abstract boolean validateNumberOfElementsInCartIconIsPresent(String number);
+
+    public abstract CartPageBase clickOnCartBtn();
 }

@@ -1,5 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.ios;
 
+import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
@@ -38,6 +39,16 @@ public class ProductDetailPage extends ProductDetailPageBase {
     @Override
     public void clickAddToCartBtn() {
 
+    }
+
+    @Override
+    public boolean validateNumberOfElementsInCartIconIsPresent(String number) {
+        return false;
+    }
+
+    @Override
+    public CartPageBase clickOnCartBtn() {
+        return null;
     }
 
 

@@ -38,4 +38,9 @@ public class CheckoutPage extends CheckoutPageBase {
     public void clickFinishBtn() {
 
     }
+
+    @Override
+    public boolean isThankYouForYourOrderTextPresent() {
+        return false;
+    }
 }

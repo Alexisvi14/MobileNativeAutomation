@@ -2,7 +2,7 @@ package com.zebrunner.carina.demo.gui.pages.ios;
 
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.CheckoutPageBase;
-import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
+import com.zebrunner.carina.demo.gui.pages.common.ProductsListPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
@@ -35,13 +35,18 @@ public class CartPage extends CartPageBase {
     }
 
     @Override
-    public HomePageBase clickContinueShoppingButton() {
+    public ProductsListPageBase clickContinueShoppingButton() {
         continueShoppingButton.click();
-        return initPage(getDriver(), HomePageBase.class);
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
     public boolean isDescriptionDisplayed() {
         return productDescription.isDisplayed();
+    }
+
+    @Override
+    public boolean isYourCartTitleDisplayed() {
+        return false;
     }
 }

@@ -1,5 +1,7 @@
 package com.zebrunner.carina.demo.gui.pages.android;
 
+import com.zebrunner.carina.demo.gui.components.android.AndroidHeaderComponent;
+import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
@@ -24,6 +26,14 @@ public class ProductDetailPage extends ProductDetailPageBase {
 
     @ExtendedFindBy(accessibilityId = "test-ADD TO CART")
     ExtendedWebElement addToCartBtn;
+
+    @ExtendedFindBy(accessibilityId = "test-Cart")
+    AndroidHeaderComponent cartButton;
+
+    @FindBy(xpath = "//android.widget.TextView[@text= '%s']")
+    ExtendedWebElement numberOfElementsInCartIcon;
+
+
 
     public ProductDetailPage(WebDriver driver) {
         super(driver);
@@ -59,5 +69,18 @@ public class ProductDetailPage extends ProductDetailPageBase {
     @Override
     public String getProductTitle() {
         return productTitle.getText();
+    }
+
+
+    @Override
+    public boolean validateNumberOfElementsInCartIconIsPresent(String number) {
+        numberOfElementsInCartIcon = numberOfElementsInCartIcon.format(number);
+        return numberOfElementsInCartIcon.isDisplayed();
+    }
+
+    @Override
+    public CartPageBase clickOnCartBtn() {
+        cartButton.click();
+        return initPage(getDriver(), CartPageBase.class);
     }
 }

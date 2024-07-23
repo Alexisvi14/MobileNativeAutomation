@@ -1,6 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.ios;
 
-import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
+import com.zebrunner.carina.demo.gui.pages.common.ProductsListPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
@@ -35,9 +35,9 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public HomePageBase clickLoginButton() {
+    public ProductsListPageBase clickLoginButton() {
         loginButton.click();
-        return initPage(getDriver(),HomePageBase.class);
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
@@ -46,17 +46,17 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public HomePageBase loginWithStandardCredentials() {
+    public ProductsListPageBase loginWithStandardCredentials() {
         while (!standardUser.isPresent()){
             swipe(standardUser, 500);
         }
         standardUser.click();
         loginButton.click();
-        return initPage(getDriver(), HomePageBase.class);
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
-    public HomePageBase loginWithProblemCredentials() {
+    public ProductsListPageBase loginWithProblemCredentials() {
         return null;
     }
 
@@ -68,5 +68,10 @@ public class LoginPage extends LoginPageBase {
     @Override
     public void clickPasswordTextBox(String password) {
 
+    }
+
+    @Override
+    public boolean isLoginBtnPresent() {
+        return false;
     }
 }

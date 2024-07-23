@@ -1,11 +1,11 @@
 package com.zebrunner.carina.demo.gui.pages.android;
 
 import com.zebrunner.carina.demo.gui.pages.common.CheckoutPageBase;
-import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CheckoutPageBase.class)
 public class CheckoutPage extends CheckoutPageBase {
@@ -20,6 +20,9 @@ public class CheckoutPage extends CheckoutPageBase {
     ExtendedWebElement continueButton;
     @ExtendedFindBy(accessibilityId = "test-FINISH")
     ExtendedWebElement finishButton;
+    @FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-CHECKOUT: COMPLETE!\"]/android.view.ViewGroup/android.widget.TextView[1]")
+    ExtendedWebElement thankYouForYourOrderText;
+
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -46,5 +49,10 @@ public class CheckoutPage extends CheckoutPageBase {
             swipe(finishButton);
         }
         finishButton.click();
+    }
+
+    @Override
+    public boolean isThankYouForYourOrderTextPresent() {
+        return thankYouForYourOrderText.isPresent();
     }
 }

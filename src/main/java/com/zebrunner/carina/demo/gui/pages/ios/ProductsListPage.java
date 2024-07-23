@@ -1,9 +1,10 @@
-package com.zebrunner.carina.demo.gui.pages.android;
+package com.zebrunner.carina.demo.gui.pages.ios;
 
-import com.zebrunner.carina.demo.gui.components.android.FilterElementsAndroid;
+import com.zebrunner.carina.demo.gui.enums.MenuOptions;
 import com.zebrunner.carina.demo.gui.enums.SortingType;
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
-import com.zebrunner.carina.demo.gui.pages.common.HomePageBase;
+import com.zebrunner.carina.demo.gui.pages.common.LoginPageBase;
+import com.zebrunner.carina.demo.gui.pages.common.ProductsListPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
@@ -13,34 +14,39 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-@DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HomePageBase.class)
-public class HomePage extends HomePageBase {
-
-    @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-Item\"])[%s]")
+@DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductsListPageBase.class)
+public class ProductsListPage extends ProductsListPageBase {
+    @FindBy(xpath = "(//XCUIElementTypeStaticText[@name=\"test-Item title\"])['%s']")
     ExtendedWebElement products;
     @FindBy(xpath = "add")
     ExtendedWebElement burguerMenu;
     @ExtendedFindBy(accessibilityId = "test-Toggle")
     ExtendedWebElement changeViewButton;
-    @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-ADD TO CART\"])[%s]")
+    @FindBy(xpath = "(//XCUIElementTypeOther[@name=\"test-ADD TO CART\"])['%s']")
     ExtendedWebElement addToCartButton;
     @ExtendedFindBy(accessibilityId = "test-Cart")
     ExtendedWebElement cartButton;
     @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-Item\"])[1]")
     ExtendedWebElement firstElement;
-    @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
-    ExtendedWebElement filterButton;
-    @ExtendedFindBy(accessibilityId = "Selector container")
-    FilterElementsAndroid filterOption;
-    @ExtendedFindBy(accessibilityId = "test-Price")
-    private List<ExtendedWebElement> productPrices;
 
-
-    public HomePage(WebDriver driver) {
+    public ProductsListPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public void addProductsToCartByTitle(List<String> productTitles) {
+
+    }
+
+    @Override
+    public ProductDetailPageBase clickOnFirstElement() {
+        return null;
+    }
+
+    @Override
+    public void getPriceText() {
+
     }
 
     @Override
@@ -57,16 +63,13 @@ public class HomePage extends HomePageBase {
     }
 
     @Override
-    public void clickBurguerMenu() {
+    public void openBurguerMenu() {
         burguerMenu.click();
     }
 
     @Override
     public ProductDetailPageBase clickProductByIndex(String index) {
         products = products.format(index);
-        while (!products.isPresent()){
-            swipe(products);
-        }
         products.click();
         return initPage(getDriver(), ProductDetailPageBase.class);
     }
@@ -84,40 +87,45 @@ public class HomePage extends HomePageBase {
 
     @Override
     public CartPageBase clickCartButton() {
-        cartButton.click();
+        if (cartButton.isPresent()) {
+            cartButton.click();
+        }
         return initPage(getDriver(), CartPageBase.class);
     }
 
     @Override
     public void sortItems(SortingType sortingType) {
-        openFilter();
-        filterOption.sortBy(sortingType);
+
     }
 
     @Override
     public void openFilter() {
-        filterButton.click();
+
     }
 
     @Override
     public boolean areItemsSortedByAscendingPrice() {
-        List<Double> prices = productPrices.stream()
-                .map(element -> Double.parseDouble(element.getText().replace("$", "")))
-                .collect(Collectors.toList());
-
-        for (int i = 0; i < prices.size() - 1; i++) {
-            if (prices.get(i) > prices.get(i + 1)) {
-                return false;
-            }
-        }
-        return true;
+        return false;
     }
 
     @Override
-    public ProductDetailPageBase clickOnFirstElement() {
-        firstElement.click();
-        return initPage(getDriver(), ProductDetailPageBase.class);
+    public void addProductsToCart(List<String> productTitles) {
+
     }
 
+    @Override
+    public LoginPageBase logout(MenuOptions logoutOption) {
+        return null;
+    }
+
+    @Override
+    public boolean isProductsListPresent() {
+        return false;
+    }
+
+    @Override
+    public List<String> getAllProductsTitle() {
+        return null;
+    }
 
 }
