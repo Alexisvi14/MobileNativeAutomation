@@ -1,5 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.ios;
 
+import com.zebrunner.carina.demo.gui.components.android.*;
 import com.zebrunner.carina.demo.gui.enums.MenuOptions;
 import com.zebrunner.carina.demo.gui.enums.SortingType;
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
@@ -12,45 +13,82 @@ import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductsListPageBase.class)
 public class ProductsListPage extends ProductsListPageBase {
-    @FindBy(xpath = "(//XCUIElementTypeStaticText[@name=\"test-Item title\"])['%s']")
-    ExtendedWebElement products;
-    @FindBy(xpath = "add")
+    @FindBy(xpath = "(//XCUIElementTypeOther[@name=\"test-Item\"])")
+    List<AndroidProductListItemComponent> productListItems;
+    @ExtendedFindBy(accessibilityId = "test-PRODUCTS")
+    AndroidProductListItemComponent products;
+    @ExtendedFindBy(accessibilityId = "test-Menu")
     ExtendedWebElement burguerMenu;
+    @FindBy(id = "android:id/content")
+    AndroidBurguerMenuComponent menuOptions;
     @ExtendedFindBy(accessibilityId = "test-Toggle")
     ExtendedWebElement changeViewButton;
-    @FindBy(xpath = "(//XCUIElementTypeOther[@name=\"test-ADD TO CART\"])['%s']")
-    ExtendedWebElement addToCartButton;
     @ExtendedFindBy(accessibilityId = "test-Cart")
-    ExtendedWebElement cartButton;
+    AndroidHeaderComponent cartButton;
     @FindBy(xpath = "(//android.view.ViewGroup[@content-desc=\"test-Item\"])[1]")
     ExtendedWebElement firstElement;
-
+    @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
+    ExtendedWebElement filterButton;
+    @ExtendedFindBy(accessibilityId = "Selector container")
+    AndroidFilterComponent filterOption;
+    @FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-PRODUCTS\"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup")
+    AndroidFooterComponent androidFooterComponent;
     public ProductsListPage(WebDriver driver) {
         super(driver);
     }
 
     @Override
     public void addProductsToCartByTitle(List<String> productTitles) {
+        Set<String> addedProducts = new HashSet<>();
+        int maxIterations = 5;
 
+        while (maxIterations > 0) {
+            for (String product : productTitles) {
+                if (addedProducts.contains(product)) {
+                    continue;
+                }
+                for (AndroidProductListItemComponent productListItem : productListItems) {
+                    try {
+                        String productTitle = productListItem.getProductTitle();
+                        if (product.equals(productTitle)) {
+                            productListItem.clickAddToCartButton();
+                            addedProducts.add(product);
+                            break;
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            if (addedProducts.size() == productTitles.size()) {
+                break;
+            }
+            if (!swipe(androidFooterComponent.getAllRightsReservedText(), Direction.UP, 2, 600)) {
+                maxIterations--;
+            }
+        }
     }
 
     @Override
     public ProductDetailPageBase clickOnFirstElement() {
-        return null;
+        firstElement.click();
+        return initPage(getDriver(), ProductDetailPageBase.class);
     }
 
     @Override
     public void getPriceText() {
-
+        productListItems.forEach(e-> System.out.println(e.getProductPrice()));
     }
 
     @Override
-    public void switchToWindow(){
+    public void switchToWindow() {
         String parent = getDriver().getWindowHandle();
         Set<String> handles=getDriver().getWindowHandles();
         for (String handle:handles) {
@@ -69,8 +107,11 @@ public class ProductsListPage extends ProductsListPageBase {
 
     @Override
     public ProductDetailPageBase clickProductByIndex(String index) {
-        products = products.format(index);
-        products.click();
+        ExtendedWebElement product = products.getProductByIndex(index);
+        while (!product.isPresent() && !androidFooterComponent.isPresent()){
+            swipe(product);
+        }
+        product.click();
         return initPage(getDriver(), ProductDetailPageBase.class);
     }
 
@@ -81,31 +122,59 @@ public class ProductsListPage extends ProductsListPageBase {
 
     @Override
     public void addProductToCart(String index) {
-        addToCartButton = addToCartButton.format(index);
-        addToCartButton.click();
+        products.clickAddToCartButton();
     }
 
     @Override
     public CartPageBase clickCartButton() {
-        if (cartButton.isPresent()) {
-            cartButton.click();
-        }
+        cartButton.click();
         return initPage(getDriver(), CartPageBase.class);
     }
 
     @Override
     public void sortItems(SortingType sortingType) {
-
+        openFilter();
+        filterOption.sortBy(sortingType);
     }
 
     @Override
     public void openFilter() {
-
+        filterButton.click();
     }
 
     @Override
     public boolean areItemsSortedByAscendingPrice() {
-        return false;
+        List<Long> prices = new ArrayList<>();
+        for (AndroidProductListItemComponent productListItem : productListItems) {
+            try {
+                if (productListItem.getProductPriceWebElement().isElementPresent()){
+                    String priceString = productListItem.getProductPrice();
+                    Long price = Long.parseLong(priceString);
+                    if (!prices.contains(price)){
+                        prices.add(price);
+                    } else {
+                        break;
+                    }
+                } else {
+                    swipe(productListItem.getProductPriceWebElement());
+                    String priceString = productListItem.getProductPrice();
+                    Long price = Long.parseLong(priceString);
+                    if (!prices.contains(price)) {
+                        prices.add(price);
+                    }else {
+                        break;
+                    }
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        for (int i = 0; i < prices.size() - 1; i++) {
+            if (prices.get(i) > prices.get(i + 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -115,17 +184,33 @@ public class ProductsListPage extends ProductsListPageBase {
 
     @Override
     public LoginPageBase logout(MenuOptions logoutOption) {
-        return null;
+        openBurguerMenu();
+        menuOptions.selectOption(logoutOption);
+        return initPage(getDriver(),LoginPageBase.class);
     }
 
     @Override
     public boolean isProductsListPresent() {
-        return false;
+        return !productListItems.isEmpty();
     }
 
     @Override
     public List<String> getAllProductsTitle() {
-        return null;
+        List<String> productsToAdd = new ArrayList<>();
+        do {
+            for (AndroidProductListItemComponent productListItem : productListItems) {
+                if (!productListItem.getProductTitleWebElement().isElementPresent()) {
+                    swipe(productListItem.getProductTitleWebElement());
+                }
+                String productTitle = productListItem.getProductTitle();
+                if (productListItem.getProductTitleWebElement().isElementPresent() && !productsToAdd.contains(productTitle)) {
+                    productsToAdd.add(productTitle);
+                }
+            }
+
+        } while (!androidFooterComponent.isPresent());
+        return productsToAdd;
     }
+
 
 }

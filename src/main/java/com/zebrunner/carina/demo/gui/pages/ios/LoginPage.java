@@ -12,10 +12,16 @@ import org.openqa.selenium.support.FindBy;
 public class LoginPage extends LoginPageBase {
     @ExtendedFindBy( accessibilityId = "test-standard_user")
     ExtendedWebElement standardUser;
+    @ExtendedFindBy( accessibilityId = "test-problem_user")
+    ExtendedWebElement problemUser;
     @ExtendedFindBy(accessibilityId = "test-LOGIN")
     ExtendedWebElement loginButton;
     @FindBy(css = "#signin-error-msg")
     ExtendedWebElement errorMsg;
+    @ExtendedFindBy(accessibilityId = "test-Username")
+    ExtendedWebElement usernameTextBox;
+    @ExtendedFindBy(accessibilityId = "test-Password")
+    ExtendedWebElement passwordTextBox;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -31,7 +37,10 @@ public class LoginPage extends LoginPageBase {
 
     @Override
     public void clickProblemUser() {
-
+        while (!problemUser.isPresent()){
+            swipe(problemUser);
+        }
+        problemUser.click();
     }
 
     @Override
@@ -57,21 +66,26 @@ public class LoginPage extends LoginPageBase {
 
     @Override
     public ProductsListPageBase loginWithProblemCredentials() {
-        return null;
+        while (!problemUser.isPresent()){
+            swipe(problemUser, 500);
+        }
+        problemUser.click();
+        loginButton.click();
+        return initPage(getDriver(), ProductsListPageBase.class);
     }
 
     @Override
     public void clickUsernameTextBox(String username) {
-
+        usernameTextBox.type(username);
     }
 
     @Override
     public void clickPasswordTextBox(String password) {
-
+        passwordTextBox.type(password);
     }
 
     @Override
     public boolean isLoginBtnPresent() {
-        return false;
+        return loginButton.isPresent();
     }
 }

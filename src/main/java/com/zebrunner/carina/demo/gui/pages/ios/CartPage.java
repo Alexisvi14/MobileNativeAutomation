@@ -7,6 +7,7 @@ import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import com.zebrunner.carina.webdriver.locator.ExtendedFindBy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.FindBy;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
@@ -19,6 +20,8 @@ public class CartPage extends CartPageBase {
     ExtendedWebElement checkoutButton;
     @ExtendedFindBy(accessibilityId = "test-Description")
     ExtendedWebElement productDescription;
+    @FindBy(xpath = "//XCUIElementTypeStaticText[@name=\"YOUR CART\"]")
+    ExtendedWebElement yourCartTitle;
     public CartPage(WebDriver driver) {
         super(driver);
     }
@@ -47,6 +50,6 @@ public class CartPage extends CartPageBase {
 
     @Override
     public boolean isYourCartTitleDisplayed() {
-        return false;
+        return yourCartTitle.isDisplayed();
     }
 }

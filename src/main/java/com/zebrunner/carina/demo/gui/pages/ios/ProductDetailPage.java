@@ -1,5 +1,6 @@
 package com.zebrunner.carina.demo.gui.pages.ios;
 
+import com.zebrunner.carina.demo.gui.components.android.AndroidHeaderComponent;
 import com.zebrunner.carina.demo.gui.pages.common.CartPageBase;
 import com.zebrunner.carina.demo.gui.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -14,8 +15,24 @@ import java.util.Set;
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductDetailPageBase.class)
 public class ProductDetailPage extends ProductDetailPageBase {
 
-    @ExtendedFindBy(accessibilityId = "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.")
+    @FindBy(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]")
     ExtendedWebElement productTitle;
+
+    @ExtendedFindBy(accessibilityId = "test-Image Container")
+    ExtendedWebElement productImage;
+
+    @ExtendedFindBy(accessibilityId = "test-Price")
+    ExtendedWebElement productPrice;
+
+    @ExtendedFindBy(accessibilityId = "test-ADD TO CART")
+    ExtendedWebElement addToCartBtn;
+
+    @ExtendedFindBy(accessibilityId = "test-Cart")
+    AndroidHeaderComponent cartButton;
+
+    @FindBy(xpath = "(//XCUIElementTypeOther[@name=\"%s\"])[4]")
+    ExtendedWebElement numberOfElementsInCartIcon;
+
 
     public ProductDetailPage(WebDriver driver) {
         super(driver);
@@ -28,27 +45,35 @@ public class ProductDetailPage extends ProductDetailPageBase {
 
     @Override
     public boolean isImgPresent() {
-        return false;
+        return productImage.isPresent();
     }
 
     @Override
     public String getProductPrice() {
-        return null;
+        while (!productPrice.isPresent()){
+            swipe(productPrice);
+        }
+        return productPrice.getText();
     }
 
     @Override
     public void clickAddToCartBtn() {
-
+        while (!addToCartBtn.isPresent()){
+            swipe(addToCartBtn);
+        }
+        addToCartBtn.click();
     }
 
     @Override
     public boolean validateNumberOfElementsInCartIconIsPresent(String number) {
-        return false;
+        numberOfElementsInCartIcon = numberOfElementsInCartIcon.format(number);
+        return numberOfElementsInCartIcon.isDisplayed();
     }
 
     @Override
     public CartPageBase clickOnCartBtn() {
-        return null;
+        cartButton.click();
+        return initPage(getDriver(), CartPageBase.class);
     }
 
 

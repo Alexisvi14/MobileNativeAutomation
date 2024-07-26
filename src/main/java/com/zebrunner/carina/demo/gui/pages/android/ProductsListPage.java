@@ -31,7 +31,7 @@ public class ProductsListPage extends ProductsListPageBase {
     AndroidProductListItemComponent products;
     @ExtendedFindBy(accessibilityId = "test-Menu")
     ExtendedWebElement burguerMenu;
-    @FindBy(id = "android:id/content")
+    @FindBy(xpath = "//XCUIElementTypeOther[@name=\"PRODUCTS\"]")
     AndroidBurguerMenuComponent menuOptions;
     @ExtendedFindBy(accessibilityId = "test-Toggle")
     ExtendedWebElement changeViewButton;
@@ -41,9 +41,9 @@ public class ProductsListPage extends ProductsListPageBase {
     ExtendedWebElement firstElement;
     @ExtendedFindBy(accessibilityId = "test-Modal Selector Button")
     ExtendedWebElement filterButton;
-    @ExtendedFindBy(accessibilityId = "Selector container")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"Selector container\"`][1]")
     AndroidFilterComponent filterOption;
-    @FindBy(xpath = "//android.widget.ScrollView[@content-desc=\"test-PRODUCTS\"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup")
+    @ExtendedFindBy(iosClassChain = "**/XCUIElementTypeOther[`label == \"\uF099 \uF09A \uF0D5 \uF0E1 © 2024 Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy\"`][2]")
     AndroidFooterComponent androidFooterComponent;
 
 
